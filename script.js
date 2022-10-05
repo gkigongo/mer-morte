@@ -46,31 +46,6 @@ function gameTimer() {
 }
 
 
-
-// click start, then hide start button, show quizcontainer, setting next question
-
-startButton.addEventListener("click", startQuiz)
-
-function startQuiz() {
-
-    startButton.classList.add('hide')
-    quizcontainerEl.classList.remove('hide')
-    seeScore.classList.add('hide')
-    initialsInputEl.classList.add('hide')
-    showScore.classList.add('hide')
-
-    // sort questions by random order
-
-    shuffledQuestions = qandas.sort(() => Math.random() - 0.5)
-
-    currentQuestionIndex = 0;
-    setNextQuestion();
-
-    console.log(shuffledQuestions)
-}
-
-
-
 // questions and answers stored in an array
 
 const qandas = [
@@ -85,7 +60,7 @@ const qandas = [
                 "Scanning"
             ]
     }, {
-        question: "What is NATO[1] in the following array:\n var NATO = [Alpha. Bravo, Charlie, Delta]",
+        question: "What is NATO[1] in the following array:\n var NATO = [Alpha, Bravo, Charlie, Delta]",
         answer: "Bravo",
         options:
             [
@@ -128,8 +103,30 @@ const qandas = [
 
 ]
 
+// click start, then hide start button, show quizcontainer, setting stage for next question
 
-// display new question.
+startButton.addEventListener("click", startQuiz)
+
+function startQuiz() {
+
+    startButton.classList.add('hide')
+    quizcontainerEl.classList.remove('hide')
+    seeScore.classList.add('hide')
+    initialsInputEl.classList.add('hide')
+    showScore.classList.add('hide')
+
+    // sort questions by random order
+
+    shuffledQuestions = qandas.sort(() => Math.random() - 0.5)
+
+    currentQuestionIndex = 0;
+    setNextQuestion();
+
+    console.log(shuffledQuestions)
+}
+
+
+// randomly select new question.
 function setNextQuestion() {
     resetQuestion()
     showQuestion(shuffledQuestions[currentQuestionIndex])
@@ -137,7 +134,7 @@ function setNextQuestion() {
 }
 
 
-// show new question
+// display new question
 function showQuestion() {
 
     let questionTag = shuffledQuestions[currentQuestionIndex].question;
@@ -165,7 +162,7 @@ function resetQuestion() {
 
 let __score = 0;
 
-//check the answers and calculate scores
+//check answers and calculate scores
 answerEl.addEventListener("click", selectAnswer)
 
 function selectAnswer(e) {
